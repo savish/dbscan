@@ -1,32 +1,10 @@
 extern crate dbscan;
-use dbscan::{cluster, HasDistance, HasLabel};
+use dbscan::{HasDistance, DBSCAN};
 
-// fn neighbours(point: (i32, i32), from_db: Vec<(i32, i32)>, eps: u32) -> Vec<(i32, i32)> {
-//     from_db
-//         .into_iter()
-//         .filter(|q| !is_equal(point, *q) && is_neighbour(point, *q, eps))
-//         .collect::<Vec<(i32, i32)>>()
-// }
-
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, Hash)]
 struct Point {
     x: i32,
     y: i32,
-    label: Option<i32>,
-}
-
-impl HasLabel for Point {
-    fn set_label(&mut self, label: i32) {
-        self.label = Some(label);
-    }
-
-    fn clear_label(&mut self) {
-        self.label = None
-    }
-
-    fn label(&self) -> Option<i32> {
-        self.label
-    }
 }
 
 impl HasDistance for Point {
@@ -83,40 +61,18 @@ fn main() {
 
     let mut labpts = points
         .into_iter()
-        .map(|pt| Point {
-            x: pt.0,
-            y: pt.1,
-            label: None,
-        })
+        .map(|pt| Point { x: pt.0, y: pt.1 })
         .collect::<Vec<_>>();
 
-    cluster(&mut labpts, 1, 1);
-
-    // for lp in stuff.iter() {
-    //     println!("{:?}", lp);
+    // for line in cluster(&mut labpts, 2, 2).iter() {
+    //     println!("{:?}", line);
     // }
 
-    for lp in labpts.iter() {
-        println!("{:?}", lp);
+    let dbscan = DBSCAN::new(&mut labpts, 2, 2);
+    // println!("{:?}", dbscan.inner());
+    for cluster in dbscan.clusters() {
+        println!("{:?}", cluster);
     }
 
-    // let mut looper = vec![];
-
-    // let neighbours = neighbours(points[7], points, 2);
-
-    // for val in 0..looper.len() {
-    //   if looper.len() < 15 {
-    //     looper.extend(vec![3, 4]);
-    //   }
-    //   println!("{:?}", looper);
-    // }
-    // let mut ix = 0usize;
-    // while ix <= looper.len() {
-    //   println!("{:?}", ix);
-    //   println!("{:?}", looper);
-    //   ix = ix + 1;
-    //   if ix < 25 {
-    //     looper.push(ix);
-    //   }
-    // }
+    println!("{:?}", dbscan.noise());
 }
