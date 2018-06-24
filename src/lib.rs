@@ -29,30 +29,20 @@ where
     }
 
     // clusters
-    pub fn clusters(&self) -> HashMap<&Option<i32>, Vec<&T>> {
+    pub fn clusters(&self) -> HashMap<Option<i32>, Vec<T>> {
         let mut clusters = HashMap::new();
 
         for (clusterable, cluster) in self.inner() {
             if *cluster != Some(-1) {
-                let current_cluster = clusters.entry(cluster).or_insert(Vec::new());
-                current_cluster.push(clusterable);
+                let current_cluster = clusters.entry(*cluster).or_insert(Vec::new());
+                current_cluster.push(*clusterable);
+            } else {
+                let current_cluster = clusters.entry(None).or_insert(Vec::new());
+                current_cluster.push(*clusterable);
             }
         }
 
         clusters
-    }
-
-    // noise
-    pub fn noise(&self) -> Vec<&T> {
-        let mut noise = Vec::new();
-
-        for (clusterable, cluster) in self.inner() {
-            if *cluster == Some(-1) {
-                noise.push(clusterable);
-            }
-        }
-
-        noise
     }
 
     pub fn inner(&self) -> &HashMap<T, Option<i32>> {
