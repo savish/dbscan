@@ -1,5 +1,6 @@
 extern crate dbscan;
 use dbscan::{HasDistance, DBSCAN};
+use std::fmt;
 
 #[derive(Clone, Copy, Debug, Hash)]
 struct Point {
@@ -22,6 +23,12 @@ impl PartialEq for Point {
 }
 
 impl Eq for Point {}
+
+impl fmt::Display for Point {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
+}
 
 fn main() {
     let points: Vec<(i32, i32)> = vec![
@@ -70,9 +77,10 @@ fn main() {
 
     let dbscan = DBSCAN::new(&mut labpts, 2, 2);
     // println!("{:?}", dbscan.inner());
-    for cluster in dbscan.clusters() {
-        println!("{:?}", cluster);
+    for (cluster, points) in dbscan.clusters() {
+        match cluster {
+            Some(cluster_name) => println!("\nCluster {:?}: {:?}", cluster_name, points),
+            None => println!("\nNoise: {:?}", points),
+        }
     }
-
-    println!("{:?}", dbscan.noise());
 }
