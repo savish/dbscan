@@ -1,3 +1,5 @@
+//! DBSCAN clustering algorithm
+
 use std::collections::HashMap;
 
 /// A distance function for types
@@ -21,7 +23,7 @@ where
     T: HasDistance + Eq + Copy + std::hash::Hash,
 {
     pub fn new(
-        clusterables: &mut Vec<T>,
+        clusterables: &[T],
         epsilon: <T as HasDistance>::Output,
         min_pts: usize,
     ) -> DBSCAN<T> {
@@ -51,11 +53,7 @@ where
     }
 }
 
-fn neighbours<T>(
-    clusterable: T,
-    clusterables: &Vec<T>,
-    epsilon: <T as HasDistance>::Output,
-) -> Vec<T>
+fn neighbours<T>(clusterable: T, clusterables: &[T], epsilon: <T as HasDistance>::Output) -> Vec<T>
 where
     T: HasDistance + Eq + Copy,
 {
@@ -67,7 +65,7 @@ where
 }
 
 pub fn cluster<T>(
-    clusterables: &mut Vec<T>,
+    clusterables: &[T],
     epsilon: <T as HasDistance>::Output,
     min_pts: usize,
 ) -> HashMap<T, Option<i32>>
