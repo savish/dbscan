@@ -41,10 +41,92 @@ This will add the trait `HasDistance` and the struct `DBSCAN` to the current mod
 Implementation examples are provided in the `examples/` directory. One simple implementation is presented below.
 
 **2D Point clustering**
-This implementation uses the `dbscan` crate to add distance-based clustering capabilities to a field of 2D points.
+
+This implementation uses the `dbscan` crate to add distance-based clustering capabilities to a field of 2D points. The full example can be viewed in the examples directory mentioned above. A few implementation details are presented below.
+
+1.  Define a 'clusterable' type
 
 ```rust
-// TODO: Example here
+/// Represents a 2 Dimensional point
+#[derive(Clone, Copy, Debug)]
+struct Point {
+  id: u32,
+  x: f64,
+  y: f64,
+}
+```
+
+2.  Implement required traits. The algorthm requires that the `HasDistance`, `Hash`, `Eq` and `Copy` traits be implemented for all potential clusterable types. Two such implementations are listed below.
+
+```rust
+impl HasDistance for Point {
+  type Output = f64;
+
+  fn distance(&self, other: Point) -> f64 {
+    ((self.x - other.x).powi(2) + (self.y - other.y).powi(2)).sqrt()
+  }
+}
+
+// Need to implement our own hash function since you cannot derive the `Hash`
+// trait for the `f64` primitive type
+impl Hash for Point {
+  fn hash<H: Hasher>(&self, state: &mut H) {
+    self.id.hash(state);
+  }
+}
+```
+
+3.  Define your clusterables
+
+```rust
+fn main() {
+  // Use a tuple vector to define some points
+  let point_tuples = vec![
+    (0f64, 0f64),
+    (1., 0.),
+    (0., -1.),
+    (1., 2.),
+    (3., 5.),
+  ];
+
+  // Create a vector of point structs
+  let points = point_tuples
+    .into_iter()
+    .enumerate()
+    .map(|(id, pt)| Point {
+      id: id as u32,
+      x: pt.0,
+      y: pt.1,
+    })
+    .collect::<Vec<_>>();
+
+  ...
+```
+
+4.  Create a new instance of the algorithm from your clusterables
+
+```rust
+fn main() {
+  ...
+  let alg = DBSCAN::new(&points, 2f64, 1);
+  ...
+}
+```
+
+5.  Use the `.clusters()` function to get your clustered results
+
+```rust
+fn main() {
+  ...
+  // Print out clusters
+  for (cluster, points) in alg.clusters() {
+    match cluster {
+      Some(cluster_name) => println!("Cluster {:?}: {:?}", cluster_name, points),
+      None => println!("Noise: {:?}", points),
+    }
+  }
+  ...
+}
 ```
 
 ## Development
