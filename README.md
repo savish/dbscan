@@ -1,5 +1,7 @@
 # DBSCAN
 
+[![Build Status](https://travis-ci.com/savish/dbscan.svg?branch=master)](https://travis-ci.com/savish/dbscan)
+
 > Density-Based Spatial Clustering of Applications with Noise
 
 [Wikipedia link](1)
