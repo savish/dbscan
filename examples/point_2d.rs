@@ -7,7 +7,7 @@
 //! to cluster them accordingly and print out the clusters
 
 extern crate dbscan;
-use dbscan::{HasDistance, DBSCAN};
+use dbscan::{Proximity, DBSCAN};
 use std::fmt;
 use std::hash::{Hash, Hasher};
 
@@ -20,7 +20,7 @@ struct Point {
 }
 
 // Must be implemented for the struct to be used in the algorithm
-impl HasDistance for Point {
+impl Proximity for Point {
   type Output = f64;
 
   fn distance(&self, other: Point) -> f64 {

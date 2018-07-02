@@ -10,15 +10,9 @@ This is an implementation of the algorithm in rust-stable.
 
 ## Usage
 
-### Prerequisites
+This project is written entirely in rust. It is recommended that you use the latest stable version with it. The _oldest_ supported version is `1.26.1`
 
-This project is written entirely in rust. It is recommended that you use the latest stable version with it.
-
-Oldest supported version: `1.26.1`
-
-### Installation
-
-Add the project to your `Cargo.toml` file, under dependencies. At the moment, there are no optional features, so this will suffice:
+To use, Add the project to your `Cargo.toml` file, under dependencies. At the moment, there are no optional features, so this will suffice:
 
 **Cargo.toml**
 
@@ -34,9 +28,9 @@ extern crate dbscan;
 use dbscan::{DBSCAN, HasDistance};
 ```
 
-This will add the trait `HasDistance` and the struct `DBSCAN` to the current module.
+This will add the traits `HasDistance` and the struct `DBSCAN` to the current module/scope.
 
-### Implementation example
+## Examples
 
 Implementation examples are provided in the `examples/` directory. One simple implementation is presented below.
 
@@ -129,24 +123,9 @@ fn main() {
 }
 ```
 
-## Development
+## Tests
 
-Setting up a development environment can be done as follows.
-
-### Setup
-
-1.  Install the latest stable version of rust if you haven't done so already.
-2.  Clone this repository into your dev directory
-
-It is recommended that you use use `rustfmt` to keep consistent formatting while working on the project. Most IDEs and editors should support it natively.
-
-### Tests
-
-TODO
-
-## Contributing
-
-Please read CONTRIBUTING.md for the process of submitting pull requests.
+**TODO**
 
 ## Versioning
 
@@ -160,4 +139,9 @@ _Primary:_ Alan K <mailto:afksavish@gmail.com> @savish
 
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
+## Contributing
+
+Please read [CONTRIBUTING.md](2) for the process of submitting pull requests.
+
 [1]: https://en.wikipedia.org/wiki/DBSCAN
+[2]: ./CONTRIBUTING.md
