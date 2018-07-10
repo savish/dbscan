@@ -7,7 +7,7 @@
 //! to cluster them accordingly and print out the clusters
 
 extern crate dbscan;
-use dbscan::{Proximity, DBSCAN};
+use dbscan::{Algorithm, Proximity, DBSCAN};
 use std::fmt;
 use std::hash::{Hash, Hasher};
 
@@ -23,7 +23,7 @@ struct Point {
 impl Proximity for Point {
   type Output = f64;
 
-  fn distance(&self, other: Point) -> f64 {
+  fn distance(&self, other: &Point) -> f64 {
     ((self.x - other.x).powi(2) + (self.y - other.y).powi(2)).sqrt()
   }
 }
@@ -81,7 +81,7 @@ fn main() {
   //
   // This instance will consider all points within a radius of 2 units as
   // 'neighours' and any point with more than 1 neighbour forms a cluster.
-  let alg = DBSCAN::new(&points, 2f64, 1);
+  let alg = DBSCAN::new(2f64, 1);
 
   // Print out clusters
   //
@@ -89,22 +89,18 @@ fn main() {
   // and whose values are a list of `Point` structs in this implementation.
   // The keys that have some value (`Some(value)`) represent clusters. Noise
   // elements have a key of `None`
-  for (cluster, points) in alg.clusters() {
-    match cluster {
-      Some(cluster_name) => {
-        print!("\nCluster {:?}: [ ", cluster_name);
-        for point in points.iter() {
-          print!("{} ", point);
-        }
-        println!("]");
-      }
-      None => {
-        print!("\nNoise: [ ");
-        for point in points.iter() {
-          print!("{} ", point);
-        }
-        println!("]");
-      }
+  let cluster_results = alg.cluster(&points);
+  for cluster in cluster_results.clusters() {
+    print!("\nCluster: [");
+    for cluster_point in cluster {
+      print!(" {}", cluster_point)
     }
+    print!(" ]\n");
   }
+
+  print!("\nNoise: [");
+  for noise_point in cluster_results.noise() {
+    print!(" {}", noise_point);
+  }
+  print!(" ]\n");
 }
