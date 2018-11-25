@@ -176,7 +176,7 @@ where
 
         for (clusterable, cluster) in self.inner() {
             if *cluster != Some(-1) {
-                let current_cluster = cluster_map.entry(*cluster).or_insert(Vec::new());
+                let current_cluster = cluster_map.entry(*cluster).or_insert_with(Vec::new);
                 current_cluster.push(*clusterable);
             }
         }
@@ -247,7 +247,7 @@ where
     clusterables
         .iter()
         .filter(|q| clusterable != **q && clusterable.is_near(*q, epsilon))
-        .map(|q| *q)
+        .cloned()
         .collect::<Vec<_>>()
 }
 
@@ -306,7 +306,7 @@ where
             }
         }
 
-        cluster_count = cluster_count + 1;
+        cluster_count += 1;
     }
 
     clusters
