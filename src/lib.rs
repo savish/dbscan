@@ -2,7 +2,7 @@
 //!
 //! [![Build Status](https://travis-ci.com/savish/dbscan.svg?branch=master)](https://travis-ci.com/savish/dbscan)
 //!
-//!     Density-Based Spatial Clustering of Applications with Noise
+//! **Density-Based Spatial Clustering of Applications with Noise**
 //!
 //! [Wikipedia link][1]
 //!
@@ -25,7 +25,7 @@
 //!
 //! Import the library into your project using:
 //!
-//! ```rust
+//! ```rust,ignore
 //! extern crate dbscan;
 //! use dbscan::{DBSCAN, Proximity};
 //! ```
@@ -42,7 +42,7 @@
 //!
 //! 1.  Define a 'clusterable' type
 //!
-//! ```rust
+//! ```rust,ignore
 //! /// Represents a 2 Dimensional point
 //! #[derive(Clone, Copy, Debug)]
 //! struct Point {
@@ -54,7 +54,7 @@
 //!
 //! 2.  Implement required traits. The algorthm requires that the `Proximity`, `Hash`, `Eq` and `Copy` traits be implemented for all potential clusterable types. Two such implementations are listed below.
 //!
-//! ```rust
+//! ```rust,ignore
 //! impl Proximity for Point {
 //!   type Output = f64;
 //!
@@ -74,7 +74,7 @@
 //!
 //! 3.  Define your clusterables
 //!
-//! ```rust
+//! ```rust,ignore
 //! fn main() {
 //!   // Use a tuple vector to define some points
 //!   let point_tuples = vec![
@@ -101,7 +101,7 @@
 //!
 //! 4.  Create a new instance of the algorithm from your clusterables
 //!
-//! ```rust
+//! ```rust,ignore
 //! fn main() {
 //!   ...
 //!   let alg = DBSCAN::new(&points, 2f64, 1);
@@ -111,7 +111,7 @@
 //!
 //! 5.  Use the `.clusters()` function to get your clustered results
 //!
-//! ```rust
+//! ```rust,ignore
 //! fn main() {
 //!   ...
 //!   // Print out clusters
