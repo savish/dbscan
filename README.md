@@ -143,7 +143,6 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](2) for the process of submitting pull requests.
+Please read `CONTRIBUTING.md` for the process of submitting pull requests.
 
 [1]: https://en.wikipedia.org/wiki/DBSCAN
-[2]: ./CONTRIBUTING.md

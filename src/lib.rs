@@ -2,9 +2,9 @@
 //!
 //! [![Build Status](https://travis-ci.com/savish/dbscan.svg?branch=master)](https://travis-ci.com/savish/dbscan)
 //!
-//! Density-Based Spatial Clustering of Applications with Noise
+//!     Density-Based Spatial Clustering of Applications with Noise
 //!
-//! [Wikipedia link](1)
+//! [Wikipedia link][1]
 //!
 //! DBSCAN is a density-based clustering algorithm: given a set of points in some space, it groups together points that are closely packed together (points with many nearby neighbors), marking as outliers points that lie alone in low-density regions (whose nearest neighbors are too far away).
 //!
@@ -143,10 +143,9 @@
 //!
 //! ## Contributing
 //!
-//! Please read [CONTRIBUTING.md](2) for the process of submitting pull requests.
+//! Please read `CONTRIBUTING.md` for the process of submitting pull requests.
 //!
 //! [1]: https://en.wikipedia.org/wiki/DBSCAN
-//! [2]: ./CONTRIBUTING.md
 
 #![warn(missing_docs)]
 extern crate clusters;
