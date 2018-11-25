@@ -27,10 +27,10 @@ Import the library into your project using:
 
 ```rust
 extern crate dbscan;
-use dbscan::{DBSCAN, HasDistance};
+use dbscan::{DBSCAN, Proximity};
 ```
 
-This will add the traits `HasDistance` and the struct `DBSCAN` to the current module/scope.
+This will add the traits `Proximity` and the struct `DBSCAN` to the current module/scope.
 
 ## Examples
 
@@ -52,10 +52,10 @@ struct Point {
 }
 ```
 
-2.  Implement required traits. The algorthm requires that the `HasDistance`, `Hash`, `Eq` and `Copy` traits be implemented for all potential clusterable types. Two such implementations are listed below.
+2.  Implement required traits. The algorthm requires that the `Proximity`, `Hash`, `Eq` and `Copy` traits be implemented for all potential clusterable types. Two such implementations are listed below.
 
 ```rust
-impl HasDistance for Point {
+impl Proximity for Point {
   type Output = f64;
 
   fn distance(&self, other: Point) -> f64 {

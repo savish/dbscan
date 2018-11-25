@@ -7,12 +7,15 @@
       "type": "shell",
       "label": "cargo build",
       "command": "cargo",
-      "args": [
-        "build"
-      ],
-      "problemMatcher": [
-        "$rustc"
-      ]
+      "args": ["build"],
+      "problemMatcher": ["$rustc"]
+    },
+    {
+      "type": "shell",
+      "label": "cargo doc",
+      "command": "cargo",
+      "args": ["doc"],
+      "problemMatcher": ["$rustc"]
     }
   ]
 }
