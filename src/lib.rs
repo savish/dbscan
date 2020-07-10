@@ -148,10 +148,8 @@
 //! [1]: https://en.wikipedia.org/wiki/DBSCAN
 
 #![warn(missing_docs)]
-extern crate clusters;
-pub use clusters::Algorithm;
-pub use clusters::Clustered;
-pub use clusters::Proximity;
+
+pub use clusters::{Algorithm, Clustered, Proximity};
 use std::collections::HashMap;
 
 /// Holds results from the DBSCAN clustering algorithm
@@ -234,7 +232,7 @@ impl<T> Algorithm<T> for DBSCAN<T>
 where
     T: Proximity + Eq + Copy + std::hash::Hash + 'static,
 {
-    fn cluster(&self, clusterables: &[T]) -> Box<Clustered<T>> {
+    fn cluster(&self, clusterables: &[T]) -> Box<dyn Clustered<T>> {
         Box::new(Results(cluster(clusterables, self.epsilon, self.min_pts)))
     }
 }
