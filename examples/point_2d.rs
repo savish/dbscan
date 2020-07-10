@@ -6,10 +6,11 @@
 //! In the main function we define a number of 2D points and use the algorithm
 //! to cluster them accordingly and print out the clusters
 
-extern crate dbscan;
 use dbscan::{Algorithm, Proximity, DBSCAN};
-use std::fmt;
-use std::hash::{Hash, Hasher};
+use std::{
+  fmt,
+  hash::{Hash, Hasher},
+};
 
 /// Represents a 2 Dimensional point
 #[derive(Clone, Copy, Debug)]
@@ -46,7 +47,7 @@ impl Eq for Point {}
 
 // Not required by the algorithm
 impl fmt::Display for Point {
-  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     write!(f, "({}, {})", self.x, self.y)
   }
 }
@@ -95,12 +96,12 @@ fn main() {
     for cluster_point in cluster {
       print!(" {}", cluster_point)
     }
-    print!(" ]\n");
+    println!(" ]");
   }
 
   print!("\nNoise: [");
   for noise_point in cluster_results.noise() {
     print!(" {}", noise_point);
   }
-  print!(" ]\n");
+  println!(" ]");
 }
