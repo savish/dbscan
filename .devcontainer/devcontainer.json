@@ -1,0 +1,15 @@
+{
+	"name": "dbscan",
+	"extensions": [
+		"cschleiden.vscode-github-actions",
+		"rust-lang.rust-analyzer",
+		"serayuzgur.crates",
+		"vadimcn.vscode-lldb"
+	],
+	"dockerFile": "Dockerfile",
+	"settings": {
+		"editor.formatOnSave": true,
+		"terminal.integrated.defaultProfile.linux": "zsh"
+	},
+	"postAttachCommand": "exec zsh"
+}
